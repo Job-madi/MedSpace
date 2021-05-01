@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import doctors from "../models/doctorsModel";
+import {doctorsInterface} from "../ts/interface";
+
 const router = express.Router();
 
 router.get("/view", async (req, res) => {
@@ -10,17 +12,20 @@ router.get("/view", async (req, res) => {
     return res.status(200).json({success: true, message: "Returning all doctors", data: foundDoctors});
 });
 
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
 
-    const { inputName } = req.body;
+    const { name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city }:doctorsInterface = req.body;
     
+    const valuesAreValid = name && surname && age && gender && medicalField && licenseNumber && post && placeOfWork && country && city;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city"});
+
     let newDoctor:mongoose.Document = new doctors({
-        name: "placeholder",
+        name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city
     });
 
     await newDoctor.save();
 
-    return res.status(201).json({success: true, data: `Created listing for '${inputName}'.`});
+    return res.status(201).json({success: true, data: `Created listing for '${name}'.`});
     // return res.status(400).json({success: false, data: "Error in creation."});
 });
 
