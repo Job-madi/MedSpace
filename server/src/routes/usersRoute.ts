@@ -1,19 +1,19 @@
 import express from "express";
 import mongoose from "mongoose";
-import doctors from "../models/doctorsModel";
+import users from "../models/usersModel";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
 
     const { inputName } = req.body;
     
-        let newDoctor:mongoose.Document = new doctors({
+        let newUser:mongoose.Document = new users({
             name: "placeholder",
         });
     
-        await newDoctor.save();
+        await newUser.save();
     
-        return res.status(201).json({success: true, message: `Created listing for '${inputName}'.`});
+        return res.status(201).json({success: true, message: `Created user: '${inputName}'.`});
         // return res.status(400).json({success: false, message: "Error in creation."});
 });
 
