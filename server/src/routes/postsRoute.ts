@@ -103,4 +103,44 @@ router.post("/comment/add", async (req, res) => {
     // return res.status(400).json({success: false, data: "Error in creation."});
 });
 
+router.post("/comment/like", async (req, res) => {
+
+    const { postId, commentId, author } = req.body;
+
+    const valuesAreValid = postId && commentId && author;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId && commentId && author"});
+
+    const isDuplicatePost:mongoose.Document & postsInterface = await posts.findOne({ postId });
+    if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
+
+    let temp = isDuplicatePost.comments.filter(com => com.commentId === commentId);
+    temp[0].upvotes++;
+
+    isDuplicatePost.markModified("comments");
+    await isDuplicatePost.save();
+
+    return res.status(201).json({success: true, data: `Liked comment with post id '${postId}'.`});
+    // return res.status(400).json({success: false, data: "Error in creation."});
+});
+
+router.post("/comment/unlike", async (req, res) => {
+
+    const { postId, commentId, author } = req.body;
+
+    const valuesAreValid = postId && commentId && author;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId && commentId && author"});
+
+    const isDuplicatePost:mongoose.Document & postsInterface = await posts.findOne({ postId });
+    if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
+
+    let temp = isDuplicatePost.comments.filter(com => com.commentId === commentId);
+    temp[0].upvotes++;
+
+    isDuplicatePost.markModified("comments");
+    await isDuplicatePost.save();
+
+    return res.status(201).json({success: true, data: `Unliked comment with post id '${postId}'.`});
+    // return res.status(400).json({success: false, data: "Error in creation."});
+});
+
 export default router;
