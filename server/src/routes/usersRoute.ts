@@ -57,8 +57,8 @@ router.post("/login", async (req, res) => {
     const isDuplicate = await users.findOne({ username });
     if (!isDuplicate) return res.status(400).json({success: false, message: "Account doesn't exist."});
 
-    return res.status(200).json({success: true, message: `Signed in user: '${username}'.`, data: isDuplicate });
-    // return res.status(400).json({success: false, message: "Error in creation."});
+    if (isDuplicate.password === password) return res.status(200).json({success: true, message: `Signed in user: '${username}'.`, data: isDuplicate });
+    return res.status(400).json({success: false, message: "Incorrect password"});
 });
 
 export default router;
