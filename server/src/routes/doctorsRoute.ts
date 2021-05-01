@@ -12,7 +12,7 @@ router.get("/view", async (req, res) => {
     return res.status(200).json({success: true, message: "Returning all doctors", data: foundDoctors});
 });
 
-router.get("/viewOne", async (req, res) => {
+router.post("/viewOne", async (req, res) => {
     const { doctorId }:doctorsInterface = req.body;
 
     const valuesAreValid = doctorId;

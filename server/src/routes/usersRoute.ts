@@ -12,7 +12,7 @@ router.get("/view", async (req, res) => {
     return res.status(200).json({success: true, message: "Returning all users", data: foundUsers});
 });
 
-router.get("/viewOne", async (req, res) => {
+router.post("/viewOne", async (req, res) => {
     const { userId }:usersInterface = req.body;
 
     const valuesAreValid = userId;
@@ -44,6 +44,20 @@ router.post("/create", async (req, res) => {
     await newUser.save();
 
     return res.status(201).json({success: true, message: `Created user: '${username}'.`});
+    // return res.status(400).json({success: false, message: "Error in creation."});
+});
+
+router.post("/login", async (req, res) => {
+
+    const { username, password }:usersInterface = req.body;
+    
+    const valuesAreValid = username && password;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: username, password"});
+
+    const isDuplicate = await users.findOne({ username });
+    if (!isDuplicate) return res.status(400).json({success: false, message: "Account doesn't exist."});
+
+    return res.status(200).json({success: true, message: `Signed in user: '${username}'.`, data: isDuplicate });
     // return res.status(400).json({success: false, message: "Error in creation."});
 });
 

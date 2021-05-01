@@ -18,6 +18,7 @@ interface comment {
     pfpUrl: string,
     content: string,
     upvotes: string,
+    date: string,
 }
 
 export interface postsInterface {
