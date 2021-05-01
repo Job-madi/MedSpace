@@ -25,7 +25,7 @@ router.post("/create", async (req, res) => {
 
     await newDoctor.save();
 
-    return res.status(201).json({success: true, data: `Created listing for '${name}'.`});
+    return res.status(201).json({success: true, data: `Created doctor profile named '${name}'.`});
     // return res.status(400).json({success: false, data: "Error in creation."});
 });
 
