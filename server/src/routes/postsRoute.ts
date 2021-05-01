@@ -27,16 +27,21 @@ router.post("/viewOne", async (req, res) => {
 
 router.post("/create", async (req, res) => {
 
-    const { author, title, content }:postsInterface = req.body;
+    const { author, title, content, userId }/*:postsInterface*/ = req.body;
     
-    const valuesAreValid = author && title && content;
-    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: author, title, content"});
+    const valuesAreValid = author && title && content && userId;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: author, title, content, userId"});
 
-    let newPost:mongoose.Document = new posts({
+    let newPost/*:mongoose.Document*/ = new posts({
         postId: Date.now(), author, title, content, datePosted: new Date().toUTCString(), upvotes: 0
     });
 
     await newPost.save();
+
+    const foundUser:mongoose.Document & usersInterface = await users.findOne({ userId });
+    foundUser.posts.push({ postId: newPost.postId });
+    
+    await foundUser.save();
 
     return res.status(201).json({success: true, data: `Created post for '${author}'.`});
     // return res.status(400).json({success: false, data: "Error in creation."});
