@@ -12,6 +12,18 @@ router.get("/view", async (req, res) => {
     return res.status(200).json({success: true, message: "Returning all users", data: foundUsers});
 });
 
+router.get("/viewOne", async (req, res) => {
+    const { userId }:usersInterface = req.body;
+
+    const valuesAreValid = userId;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: userId"});
+
+    const foundUser = await users.find({ userId });
+
+    if (!foundUser) return res.status(400).json({success: false, data: "Error in fetching Possibly invalid userId."});
+    return res.status(200).json({success: true, message: "Returning user", data: foundUser});
+});
+
 router.post("/create", async (req, res) => {
 
     const { username, password, pfpUrl }:usersInterface = req.body;
