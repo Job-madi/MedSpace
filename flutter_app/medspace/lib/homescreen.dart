@@ -1,7 +1,9 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:medspace/Account.dart';
 import 'package:medspace/auth.dart';
+import 'package:medspace/news.dart';
 import 'home.dart';
 
 int _page = 0;
@@ -15,7 +17,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int selectedPage = 0;
-  final _pageOptions = [Login(), Signup(), Login()];
+  final _pageOptions = [Home(), News(), Account()];
 
   @override
   Widget build(BuildContext context) {

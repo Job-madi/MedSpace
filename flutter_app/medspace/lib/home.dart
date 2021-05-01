@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class home extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _homeState createState() => _homeState();
+  _HomeState createState() => _HomeState();
 }
 
-class _homeState extends State<home> {
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
