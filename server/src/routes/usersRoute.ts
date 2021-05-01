@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import users from "../models/usersModel";
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/view", async (req, res) => {
     const foundUsers = await users.find({});
 
     if (!foundUsers) return res.status(400).json({success: false, data: "Error in fetching."});
