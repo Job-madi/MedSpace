@@ -1,8 +1,15 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert' show json, base64, ascii;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:medspace/main.dart';
 import 'homescreen.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+const SERVER_IP = ''; //server ip,should 
+final storage =
+    FlutterSecureStorage(); //provides API to store data in secure storage.
 
 class Login extends StatefulWidget {
   @override
@@ -10,6 +17,17 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+//Todo: to inform user someting went wrong with alert dialog
+
+  Future<String> logIn(String username, String password) async {
+    var res = await http.post(Uri.parse("$SERVER_IP/login"),
+        body: {"username": username, "password": password});
+    if (res.statusCode == 200) return res.body;
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,6 +131,26 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+Future<int> signup(String name,String surname,int age,String gender,String medicalField,String licenseNumber,String country,String city,String profilePicture,String password,String placeofWork)async{
+  var res = await http.post(Uri.parse("$SERVER_IP/login"),
+        body: {"name": name,
+         "surname":surname,
+        "age":age,
+        "gender":gender,
+        "medicalField":medicalField,
+        "licenseNumber":licenseNumber,
+        "placeOfWork":placeofWork,
+        "country":country,
+        "city":city,
+        "pfpUrl":profilePicture,
+         });
+   return res.statusCode;
+
+}
+
+
+
+
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.width;
