@@ -4,7 +4,7 @@ export interface doctorsInterface {
     age: number,
     gender: string,
     medicalField: string,
-    licenseNumber: number,
+    licenseNumber: string,
     post: string,
     placeOfWork: string,
     country: string,

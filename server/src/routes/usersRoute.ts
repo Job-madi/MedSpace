@@ -38,12 +38,13 @@ router.post("/create", async (req, res) => {
         username,
         password,
         pfpUrl,
-        userId: Date.now()
+        userId: Date.now(),
+        doctorId: "placeholder"
     });
 
     await newUser.save();
 
-    return res.status(201).json({success: true, message: `Created user: '${username}'.`});
+    return res.status(201).json({success: true, message: `Created user: '${username}'.`, data: newUser});
     // return res.status(400).json({success: false, message: "Error in creation."});
 });
 

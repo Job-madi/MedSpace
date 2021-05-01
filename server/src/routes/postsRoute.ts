@@ -36,14 +36,13 @@ router.post("/create", async (req, res) => {
         postId: Date.now(), author, title, content, datePosted: new Date().toUTCString(), upvotes: 0
     });
 
-    await newPost.save();
-
     const foundUser:mongoose.Document & usersInterface = await users.findOne({ userId });
     foundUser.posts.push({ postId: newPost.postId });
     
+    await newPost.save();
     await foundUser.save();
 
-    return res.status(201).json({success: true, data: `Created post for '${author}'.`});
+    return res.status(201).json({success: true, message: `Created post for '${author}'.`, data: newPost});
     // return res.status(400).json({success: false, data: "Error in creation."});
 });
 
@@ -52,7 +51,7 @@ router.post("/like", async (req, res) => {
     const { postId, author, userId } = req.body;
 
     const valuesAreValid = postId && author && userId;
-    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId && author"});
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId && author && userId"});
 
     const isDuplicatePost:mongoose.Document & postsInterface = await posts.findOne({ postId });
     if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
@@ -75,7 +74,7 @@ router.post("/unlike", async (req, res) => {
     const { postId, author, userId } = req.body;
 
     const valuesAreValid = postId && author && userId;
-    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId && author"});
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId && author && userId"});
 
     const isDuplicatePost:mongoose.Document & postsInterface = await posts.findOne({ postId });
     if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
@@ -117,7 +116,7 @@ router.post("/comment/add", async (req, res) => {
 
     await isDuplicatePost.save();
 
-    return res.status(201).json({success: true, data: `Created comment on post id '${postId}'.`});
+    return res.status(201).json({success: true, message: `Created comment on post id '${postId}'.`, data: newComment});
     // return res.status(400).json({success: false, data: "Error in creation."});
 });
 
@@ -152,7 +151,7 @@ router.post("/comment/unlike", async (req, res) => {
     if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
 
     let temp = isDuplicatePost.comments.filter(com => com.commentId === commentId);
-    temp[0].upvotes++;
+    temp[0].upvotes--;
 
     isDuplicatePost.markModified("comments");
     await isDuplicatePost.save();

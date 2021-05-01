@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VamiqValji/RBC-2021.git"
+    "url": "git+https://github.com/Job-madi/MedSpace.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/VamiqValji/RBC-2021/issues"
+    "url": "https://github.com/Job-madi/MedSpace/issues"
   },
-  "homepage": "https://github.com/VamiqValji/RBC-2021#readme",
+  "homepage": "https://github.com/Job-madi/MedSpace#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

@@ -7,7 +7,7 @@ let doctorsSchema = new Schema({
   age: { type: Number, required: true },
   gender: { type: String, required: true },
   medicalField: { type: String, required: true },
-  licenseNumber: { type: Number, required: true },
+  licenseNumber: { type: String, required: true },
   post: { type: String, required: true },
   placeOfWork: { type: String, required: true },
   country: { type: String, required: true },
