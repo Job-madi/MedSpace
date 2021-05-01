@@ -10,26 +10,57 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text("trying"),
-        ),
-      ),
-      body: Container(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: h - 160,
-                width: double.infinity,
-                color: Colors.transparent,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[container(), container(), container()],
+      body: SafeArea(
+        child: Container(
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Center(
+                      child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text(
+                            "FEED",
+                            style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.w700),
+                          )),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.search),
+                          onPressed: () {},
+                        ),
+                        hintText: "search",
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.w400, color: Colors.black),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50)))),
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  height: h - 220,
+                  width: double.infinity,
+                  color: Colors.transparent,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        lol(),
+                        lol(),
+                        lol(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -37,19 +68,55 @@ class _HomeState extends State<Home> {
   }
 }
 
-container() {
+lol() {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: 10.0),
+    padding: EdgeInsets.all(11.0),
     child: Container(
-      color: Colors.grey.withOpacity(0.3),
-      height: 200,
-      width: double.maxFinite,
-      child: Row(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text("Name"),
-          Icon(Icons.arrow_upward),
+          Padding(
+            padding: EdgeInsets.all(5),
+            child: Image.network(
+              "https://4rai.com/images/easyblog_articles/155/chest-xray.jpg",
+              height: 100,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(3.0),
+            child: Text(
+              "Head",
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(3.0),
+            child: Text(
+              "details",
+              style: TextStyle(fontSize: 15.0),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              MaterialButton(
+                color: Colors.deepPurpleAccent[100],
+                onPressed: () {},
+                child: Text("Answer this Question"),
+              ),
+              MaterialButton(
+                color: Colors.deepPurpleAccent[100],
+                onPressed: () {},
+                child: Text("View Answers"),
+              ),
+            ],
+          )
         ],
       ),
+      height: 250,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          color: Colors.blueAccent.withOpacity(0.15)),
     ),
   );
 }
