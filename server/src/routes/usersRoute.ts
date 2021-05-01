@@ -38,7 +38,8 @@ router.post("/create", async (req, res) => {
         username,
         password,
         pfpUrl,
-        userId: Date.now()
+        userId: Date.now(),
+        doctorId: "placeholder"
     });
 
     await newUser.save();

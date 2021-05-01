@@ -36,11 +36,10 @@ router.post("/create", async (req, res) => {
         postId: Date.now(), author, title, content, datePosted: new Date().toUTCString(), upvotes: 0
     });
 
-    await newPost.save();
-
     const foundUser:mongoose.Document & usersInterface = await users.findOne({ userId });
     foundUser.posts.push({ postId: newPost.postId });
     
+    await newPost.save();
     await foundUser.save();
 
     return res.status(201).json({success: true, data: `Created post for '${author}'.`});
