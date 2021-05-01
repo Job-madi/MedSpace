@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import doctors from "../models/doctorsModel";
+import users from "../models/usersModel";
 import {doctorsInterface} from "../ts/interface";
 
 const router = express.Router();
@@ -26,16 +27,22 @@ router.post("/viewOne", async (req, res) => {
 
 router.post("/create", async (req, res) => {
 
-    const { name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city, pfpUrl }:doctorsInterface = req.body;
+    const { name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city, pfpUrl, userId }:doctorsInterface = req.body;
     
-    const valuesAreValid = name && surname && age && gender && medicalField && licenseNumber && post && placeOfWork && country && city && pfpUrl;
-    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city, pfpUrl"});
+    const valuesAreValid = name && surname && age && gender && medicalField && licenseNumber && post && placeOfWork && country && city && pfpUrl && userId;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city, pfpUrl, userId"});
 
-    let newDoctor:mongoose.Document = new doctors({
-        name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city, pfpUrl, doctorId: Date.now()
+    const foundUser = await users.findOne({ userId });
+    if (!foundUser) return res.status(400).json({success: false, data: "Error in fetching with userId."});
+
+    let newDoctor/*:mongoose.Document*/ = new doctors({
+        name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city, pfpUrl, doctorId: Date.now(), userId
     });
 
+    foundUser.doctorId = newDoctor.doctorId;
+    
     await newDoctor.save();
+    await foundUser.save();
 
     return res.status(201).json({success: true, data: `Created doctor profile named '${name}'.`});
     // return res.status(400).json({success: false, data: "Error in creation."});

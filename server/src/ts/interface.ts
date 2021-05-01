@@ -11,6 +11,7 @@ export interface doctorsInterface {
     city: string,
     pfpUrl: string,
     doctorId: string,
+    userId: string,
 }
 
 export interface comment {
@@ -43,4 +44,5 @@ export interface usersInterface {
     pfpUrl: string,
     posts: userPost[]
     upvotedPosts: userPost[],
+    doctorId: string,
 }

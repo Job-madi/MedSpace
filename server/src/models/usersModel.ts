@@ -7,6 +7,7 @@ let usersSchema = new Schema({
   posts: { type: Array, required: true },
   upvotedPosts: { type: Array, required: true },
   userId: { type: String, required: true },
+  doctorId: { type: String, required: true },
   // add more info later
 });
 
