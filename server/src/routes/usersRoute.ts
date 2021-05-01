@@ -14,17 +14,19 @@ router.get("/view", async (req, res) => {
 
 router.post("/create", async (req, res) => {
 
-    const { username, password }:usersInterface = req.body;
+    const { username, password, pfpUrl }:usersInterface = req.body;
     
     const isDuplicate = await users.findOne({ username });
     if (isDuplicate) return res.status(400).json({success: false, message: "Account already exists."});
 
-    const valuesAreValid = username && password;
-    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: username, password"});
+    const valuesAreValid = username && password && pfpUrl;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: username, password, pfpUrl"});
 
     let newUser:mongoose.Document = new users({
         username,
         password,
+        pfpUrl,
+        userId: Date.now()
     });
 
     await newUser.save();

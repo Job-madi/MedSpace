@@ -9,6 +9,7 @@ export interface doctorsInterface {
     placeOfWork: string,
     country: string,
     city: string,
+    pfpUrl: string,
 }
 
 interface comment {
@@ -34,6 +35,7 @@ interface userPost {
 export interface usersInterface {
     username: string,
     password: string,
+    pfpUrl: string,
     posts: userPost[]
     upvotedPosts: userPost[]
 }

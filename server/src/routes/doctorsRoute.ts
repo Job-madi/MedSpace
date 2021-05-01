@@ -14,13 +14,13 @@ router.get("/view", async (req, res) => {
 
 router.post("/create", async (req, res) => {
 
-    const { name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city }:doctorsInterface = req.body;
+    const { name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city, pfpUrl }:doctorsInterface = req.body;
     
-    const valuesAreValid = name && surname && age && gender && medicalField && licenseNumber && post && placeOfWork && country && city;
-    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city"});
+    const valuesAreValid = name && surname && age && gender && medicalField && licenseNumber && post && placeOfWork && country && city && pfpUrl;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city, pfpUrl"});
 
     let newDoctor:mongoose.Document = new doctors({
-        name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city
+        name, surname, age, gender, medicalField, licenseNumber, post, placeOfWork, country, city, pfpUrl, doctorId: Date.now()
     });
 
     await newDoctor.save();

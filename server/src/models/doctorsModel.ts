@@ -12,6 +12,7 @@ let doctorsSchema = new Schema({
   placeOfWork: { type: String, required: true },
   country: { type: String, required: true },
   city: { type: String, required: true },
+  doctorId: { type: String, required: true },
 });
 
 let doctors = mongoose.model("doctors", doctorsSchema);

@@ -6,6 +6,7 @@ let usersSchema = new Schema({
   password: { type: String, required: true },
   posts: { type: Array, required: true },
   upvotedPosts: { type: Array, required: true },
+  userId: { type: String, required: true },
   // add more info later
 });
 
