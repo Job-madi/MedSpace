@@ -27,6 +27,7 @@ dependencies:
   curved_navigation_bar: ^0.3.7
   country_picker: ^2.0.4
   newsapi: ^2.0.0
+  flag: ^3.2.2
   
 
 

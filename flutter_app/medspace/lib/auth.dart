@@ -240,7 +240,7 @@ class _SignupState extends State<Signup> {
                                         //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
 
                                         //Optional. Shows phone code before the country name.
-                                        showPhoneCode: true,
+                                        showPhoneCode: false,
                                         onSelect: (Country country) {
                                           // text = country.displayName;
                                         },
@@ -295,31 +295,4 @@ class _SignupState extends State<Signup> {
       ),
     );
   }
-}
-
-selcont() {
-  var text = "choose Country";
-
-  return Container(
-    child: Row(
-      children: <Widget>[
-        Text(text),
-        IconButton(
-            icon: Icon(Icons.arrow_drop_down),
-            iconSize: 60,
-            onPressed: () {
-              showCountryPicker(
-                // context: context,
-                //Optional.  Can be used to exclude(remove) one ore more country from the countries list (optional).
-                exclude: <String>['KN', 'MF'],
-                //Optional. Shows phone code before the country name.
-                showPhoneCode: true,
-                onSelect: (Country country) {
-                  text = country.displayName;
-                },
-              );
-            })
-      ],
-    ),
-  );
 }
