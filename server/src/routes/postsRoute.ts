@@ -12,6 +12,18 @@ router.get("/view", async (req, res) => {
     return res.status(200).json({success: true, message: "Returning all posts", data: foundPosts});
 });
 
+router.get("/viewOne", async (req, res) => {
+    const { postId }:postsInterface = req.body;
+
+    const valuesAreValid = postId;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId"});
+
+    const foundPost = await posts.find({ postId });
+
+    if (!foundPost) return res.status(400).json({success: false, data: "Error in fetching Possibly invalid postId."});
+    return res.status(200).json({success: true, message: "Returning post", data: foundPost});
+});
+
 router.post("/create", async (req, res) => {
 
     const { author, title, content }:postsInterface = req.body;

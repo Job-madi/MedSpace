@@ -8,6 +8,7 @@ let postsSchema = new Schema({
   content: { type: String, required: true },
   datePosted: { type: String, required: true },
   upvotes: { type: String, required: true },
+  comments: { type: Array, required: true }
 });
 
 let posts = mongoose.model("posts", postsSchema);

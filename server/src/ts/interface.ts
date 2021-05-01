@@ -11,6 +11,12 @@ export interface doctorsInterface {
     city: string,
 }
 
+interface comment {
+    author: string,
+    content: string,
+    upvotes: string,
+}
+
 export interface postsInterface {
     postId: string,
     author: string,
@@ -18,6 +24,7 @@ export interface postsInterface {
     content: string,
     datePosted: string,
     upvotes: string,
+    comments: comment[]
 }
 
 interface userPost {
