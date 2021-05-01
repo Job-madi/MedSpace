@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 let usersSchema = new Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
+  posts: { type: Array, required: true },
+  upvotedPosts: { type: Array, required: true },
   // add more info later
 });
 
