@@ -1,7 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import posts from "../models/postsModel";
-import {postsInterface, comment} from "../ts/interface";
+import users from "../models/usersModel";
+import {postsInterface, comment, usersInterface} from "../ts/interface";
 
 const router = express.Router();
 
@@ -43,16 +44,21 @@ router.post("/create", async (req, res) => {
 
 router.post("/like", async (req, res) => {
 
-    const { postId, author } = req.body;
+    const { postId, author, userId } = req.body;
 
-    const valuesAreValid = postId && author;
+    const valuesAreValid = postId && author && userId;
     if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId && author"});
 
     const isDuplicatePost:mongoose.Document & postsInterface = await posts.findOne({ postId });
     if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
 
+    const foundUser = await users.findOne({ userId });
+    if (!foundUser) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong user id given."});
+
+    foundUser.upvotedPosts.push(postId);
     isDuplicatePost.upvotes++;
 
+    await foundUser.save();
     await isDuplicatePost.save();
 
     return res.status(201).json({success: true, data: `Liked comment with post id '${postId}'.`});
@@ -61,16 +67,21 @@ router.post("/like", async (req, res) => {
 
 router.post("/unlike", async (req, res) => {
 
-    const { postId, author } = req.body;
+    const { postId, author, userId } = req.body;
 
-    const valuesAreValid = postId && author;
+    const valuesAreValid = postId && author && userId;
     if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId && author"});
 
     const isDuplicatePost:mongoose.Document & postsInterface = await posts.findOne({ postId });
     if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
 
-    isDuplicatePost.upvotes--;
+    const foundUser:mongoose.Document & usersInterface = await users.findOne({ userId });
+    if (!foundUser) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong user id given."});
 
+    foundUser.upvotedPosts = foundUser.upvotedPosts.filter(post => post !== postId);
+    isDuplicatePost.upvotes--;
+    
+    await foundUser.save();
     await isDuplicatePost.save();
 
     return res.status(201).json({success: true, data: `Unliked comment with post id '${postId}'.`});
@@ -89,14 +100,16 @@ router.post("/comment/add", async (req, res) => {
         date: string,
     */
     const valuesAreValid = postId && author && pfpUrl && content;
-    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId, author, pfpUrl, content"});
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId, author, pfpUrl, content, userId"});
 
     const isDuplicatePost:mongoose.Document & postsInterface = await posts.findOne({ postId });
-    if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
+    if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong post id given."});
 
     let newComment:comment = { author, content, pfpUrl, date: new Date().toUTCString(), upvotes: 0, commentId: Date.now().toString() };
 
     isDuplicatePost.comments.push(newComment);
+    isDuplicatePost.markModified("comments");
+
     await isDuplicatePost.save();
 
     return res.status(201).json({success: true, data: `Created comment on post id '${postId}'.`});
