@@ -18,7 +18,7 @@ router.post("/viewOne", async (req, res) => {
     const valuesAreValid = doctorId;
     if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: doctorId"});
 
-    const foundDoctor = await doctors.find({ doctorId });
+    const foundDoctor = await doctors.findOne({ doctorId });
 
     if (!foundDoctor) return res.status(400).json({success: false, data: "Error in fetching Possibly invalid doctorId."});
     return res.status(200).json({success: true, message: "Returning doctor", data: foundDoctor});

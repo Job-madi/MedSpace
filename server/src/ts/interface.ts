@@ -13,11 +13,11 @@ export interface doctorsInterface {
     doctorId: string,
 }
 
-interface comment {
+export interface comment {
     author: string,
     pfpUrl: string,
     content: string,
-    upvotes: string,
+    upvotes: number,
     date: string,
 }
 
@@ -27,7 +27,7 @@ export interface postsInterface {
     title: string,
     content: string,
     datePosted: string,
-    upvotes: string,
+    upvotes: number,
     comments: comment[]
 }
 

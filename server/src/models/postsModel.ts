@@ -7,7 +7,7 @@ let postsSchema = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   datePosted: { type: String, required: true },
-  upvotes: { type: String, required: true },
+  upvotes: { type: Number, required: true },
   comments: { type: Array, required: true }
 });
 
