@@ -38,8 +38,8 @@ class _AccountState extends State<Account> {
                       CircleAvatar(
                         backgroundColor: Colors.transparent,
                         radius: 100,
-                        child: Image.network(
-                          "https://i.pinimg.com/originals/d3/f9/13/d3f913b8dd27fac04b26c2c9a903610d.png",
+                        child: Image.asset(
+                          "assets/dp.png",
                         ),
                       ),
                       Column(

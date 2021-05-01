@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "MedSpace",
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      theme: ThemeData(primarySwatch: Colors.purple),
       home: Homepage(),
     );
   }
@@ -30,12 +30,12 @@ class Homepage extends StatelessWidget {
                   height: 250,
                   child: Column(
                     children: <Widget>[
-                      Image.network(
-                        "https://i.ibb.co/0MSR0qf/1619838311558.png",
+                      Image.asset(
+                        "../assets/logo.png",
                         height: 150,
                       ),
-                      Image.network(
-                        "https://i.ibb.co/XL65cLP/20210501-151339.png",
+                      Image.asset(
+                        "../assets/name.png",
                         height: 60,
                       ),
                     ],

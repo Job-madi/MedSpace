@@ -26,9 +26,13 @@ dependencies:
   adaptive_theme: ^2.2.0
   curved_navigation_bar: ^0.3.7
   country_picker: ^2.0.4
-  newsapi: ^2.0.0
   flag: ^3.2.2
-  
+  flutter_swiper: ^1.1.6
+  url_launcher: ^6.0.3
+  share: ^2.0.1
+  http: ^0.12.0+4
+  cached_network_image: ^2.0.0
+  webview_flutter: ^0.3.19+9
 
 
   # The following adds the Cupertino Icons font to your application.
