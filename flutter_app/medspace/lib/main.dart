@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "MedSpace",
-      theme: ThemeData(primarySwatch: Colors.purple),
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
       home: Homepage(),
     );
   }
@@ -26,9 +26,20 @@ class Homepage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Image.network(
-                  "https://i.ibb.co/0MSR0qf/1619838311558.png",
-                  height: 200,
+                Container(
+                  height: 250,
+                  child: Column(
+                    children: <Widget>[
+                      Image.network(
+                        "https://i.ibb.co/0MSR0qf/1619838311558.png",
+                        height: 150,
+                      ),
+                      Image.network(
+                        "https://i.ibb.co/XL65cLP/20210501-151339.png",
+                        height: 60,
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   height: 150,
@@ -39,8 +50,7 @@ class Homepage extends StatelessWidget {
                         elevation: 0.0,
                         child: Text(
                           "LogIn",
-                          style: TextStyle(
-                              fontSize: 20.0, color: Colors.deepPurple),
+                          style: TextStyle(fontSize: 20.0, color: Colors.white),
                         ),
                         onPressed: () {
                           Navigator.push(
@@ -49,36 +59,39 @@ class Homepage extends StatelessWidget {
                           );
                         },
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
+                          borderRadius: BorderRadius.circular(28.0),
                           side:
                               BorderSide(color: Colors.deepPurple, width: 2.5),
                         ),
-                        height: 60,
-                        minWidth: 250,
-                        color: Colors.black.withOpacity(0.0),
+                        height: 50,
+                        minWidth: 300,
+                        color: Colors.deepPurple,
                       ),
-                      MaterialButton(
-                        elevation: 0.0,
-                        child: Text(
-                          "SignUp",
-                          style: TextStyle(
-                              fontSize: 20.0, color: Colors.deepPurple),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: MaterialButton(
+                          elevation: 0.0,
+                          child: Text(
+                            "SignUp",
+                            style: TextStyle(
+                                fontSize: 20.0, color: Colors.deepPurple),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Signup()),
+                            );
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(28.0),
+                            side: BorderSide(
+                                color: Colors.deepPurple, width: 2.5),
+                          ),
+                          height: 50,
+                          minWidth: 300,
+                          color: Colors.black.withOpacity(0.0),
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Signup()),
-                          );
-                        },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side:
-                              BorderSide(color: Colors.deepPurple, width: 2.5),
-                        ),
-                        height: 60,
-                        minWidth: 250,
-                        color: Colors.black.withOpacity(0.0),
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -90,7 +103,7 @@ class Homepage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.amberAccent[200],
+              Colors.white,
               Colors.white,
             ],
           )),
