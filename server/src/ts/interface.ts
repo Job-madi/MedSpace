@@ -14,6 +14,7 @@ export interface doctorsInterface {
 }
 
 export interface comment {
+    commentId: string,
     author: string,
     pfpUrl: string,
     content: string,

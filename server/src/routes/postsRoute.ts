@@ -41,6 +41,42 @@ router.post("/create", async (req, res) => {
     // return res.status(400).json({success: false, data: "Error in creation."});
 });
 
+router.post("/like", async (req, res) => {
+
+    const { postId, author } = req.body;
+
+    const valuesAreValid = postId && author;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId && author"});
+
+    const isDuplicatePost:mongoose.Document & postsInterface = await posts.findOne({ postId });
+    if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
+
+    isDuplicatePost.upvotes++;
+
+    await isDuplicatePost.save();
+
+    return res.status(201).json({success: true, data: `Liked comment with post id '${postId}'.`});
+    // return res.status(400).json({success: false, data: "Error in creation."});
+});
+
+router.post("/unlike", async (req, res) => {
+
+    const { postId, author } = req.body;
+
+    const valuesAreValid = postId && author;
+    if (!valuesAreValid) return res.status(400).json({success: false, message: "Invalid values. Required: postId && author"});
+
+    const isDuplicatePost:mongoose.Document & postsInterface = await posts.findOne({ postId });
+    if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
+
+    isDuplicatePost.upvotes--;
+
+    await isDuplicatePost.save();
+
+    return res.status(201).json({success: true, data: `Unliked comment with post id '${postId}'.`});
+    // return res.status(400).json({success: false, data: "Error in creation."});
+});
+
 router.post("/comment/add", async (req, res) => {
 
     const { postId, author, pfpUrl, content/*, upvotes, date*/ }/*:postsInterface && commentInterface*/ = req.body;
@@ -58,7 +94,7 @@ router.post("/comment/add", async (req, res) => {
     const isDuplicatePost:mongoose.Document & postsInterface = await posts.findOne({ postId });
     if (!isDuplicatePost) return res.status(400).json({success: false, data: "Error in fetching, possibly wrong id given."});
 
-    let newComment:comment = { author, content, pfpUrl, date: new Date().toUTCString(), upvotes: 0 };
+    let newComment:comment = { author, content, pfpUrl, date: new Date().toUTCString(), upvotes: 0, commentId: Date.now().toString() };
 
     isDuplicatePost.comments.push(newComment);
     await isDuplicatePost.save();
