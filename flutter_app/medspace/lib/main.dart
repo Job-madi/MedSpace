@@ -30,12 +30,12 @@ class Homepage extends StatelessWidget {
                   height: 250,
                   child: Column(
                     children: <Widget>[
-                      Image.asset(
-                        "../assets/logo.png",
+                      Image.network(
+                        "https://i.postimg.cc/NyG216L8/ic-launcher.png",
                         height: 150,
                       ),
-                      Image.asset(
-                        "../assets/name.png",
+                      Image.network(
+                        "https://i.postimg.cc/gxH6XSck/name.png",
                         height: 60,
                       ),
                     ],

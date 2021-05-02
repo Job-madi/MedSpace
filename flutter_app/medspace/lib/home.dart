@@ -45,8 +45,17 @@ class _HomeState extends State<Home> {
                                 BorderRadius.all(Radius.circular(50)))),
                   ),
                 ),
+                RaisedButton(
+                  elevation: 0.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(color: Colors.black)),
+                  color: Colors.purple.withOpacity(0.0),
+                  onPressed: () {},
+                  child: Text("Ask a question"),
+                ),
                 Container(
-                  height: h - 220,
+                  height: h - 260,
                   width: double.infinity,
                   color: Colors.transparent,
                   child: SingleChildScrollView(
@@ -85,14 +94,14 @@ lol() {
           Padding(
             padding: EdgeInsets.all(3.0),
             child: Text(
-              "Head",
+              "Patient unable to breath",
               style: TextStyle(fontSize: 18.0),
             ),
           ),
           Padding(
             padding: EdgeInsets.all(3.0),
             child: Text(
-              "details",
+              "Hey, my patient is unable to breath properly. He's on oxygen support and non-asthamatic, what should I do?",
               style: TextStyle(fontSize: 15.0),
             ),
           ),
@@ -100,11 +109,15 @@ lol() {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18)),
                 color: Colors.deepPurpleAccent[100],
                 onPressed: () {},
                 child: Text("Answer this Question"),
               ),
               MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18)),
                 color: Colors.deepPurpleAccent[100],
                 onPressed: () {},
                 child: Text("View Answers"),
@@ -113,7 +126,6 @@ lol() {
           )
         ],
       ),
-      height: 250,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           color: Colors.blueAccent.withOpacity(0.15)),

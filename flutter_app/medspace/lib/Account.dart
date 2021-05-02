@@ -35,11 +35,15 @@ class _AccountState extends State<Account> {
                   ),
                   child: Row(
                     children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        radius: 100,
-                        child: Image.asset(
-                          "assets/dp.png",
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 40.0, horizontal: 20),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          radius: 50,
+                          child: Image.network(
+                            "https://i.postimg.cc/21DZ5RDK/dp.png",
+                          ),
                         ),
                       ),
                       Column(
