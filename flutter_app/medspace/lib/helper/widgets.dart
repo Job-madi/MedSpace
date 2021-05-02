@@ -7,11 +7,11 @@ Widget MyAppBar() {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          "Flutter",
+          "News",
           style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
         ),
         Text(
-          "News",
+          " | MedSpace",
           style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
         )
       ],
@@ -71,10 +71,7 @@ class NewsTile extends StatelessWidget {
                   Text(
                     title,
                     maxLines: 2,
-                    style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
                     height: 4,
@@ -82,7 +79,7 @@ class NewsTile extends StatelessWidget {
                   Text(
                     desc,
                     maxLines: 2,
-                    style: TextStyle(color: Colors.black54, fontSize: 14),
+                    style: TextStyle(fontSize: 14),
                   )
                 ],
               ),

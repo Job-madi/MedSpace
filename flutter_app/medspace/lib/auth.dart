@@ -47,8 +47,8 @@ class _LoginState extends State<Login> {
                           decoration: InputDecoration(
                               hintText: "username",
                               hintStyle: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
+                                fontWeight: FontWeight.w400,
+                              ),
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50)))),
@@ -58,12 +58,12 @@ class _LoginState extends State<Login> {
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 5.0),
                         child: TextField(
-                          obscureText: false,
+                          obscureText: true,
                           decoration: InputDecoration(
                               hintText: "password",
                               hintStyle: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
+                                fontWeight: FontWeight.w400,
+                              ),
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50)))),
@@ -155,8 +155,8 @@ class _SignupState extends State<Signup> {
                             decoration: InputDecoration(
                                 hintText: "username",
                                 hintStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)))),
@@ -169,8 +169,8 @@ class _SignupState extends State<Signup> {
                             decoration: InputDecoration(
                                 hintText: "full name",
                                 hintStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)))),
@@ -183,8 +183,8 @@ class _SignupState extends State<Signup> {
                             decoration: InputDecoration(
                                 hintText: "designation",
                                 hintStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)))),
@@ -197,8 +197,8 @@ class _SignupState extends State<Signup> {
                             decoration: InputDecoration(
                                 hintText: "licence number",
                                 hintStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)))),
@@ -212,8 +212,8 @@ class _SignupState extends State<Signup> {
                             decoration: InputDecoration(
                                 hintText: "password",
                                 hintStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)))),
@@ -251,9 +251,7 @@ class _SignupState extends State<Signup> {
                             height: 55,
                             width: h - 40,
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black45,
-                                ),
+                                border: Border.all(color: Colors.black),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50))),
                           ),

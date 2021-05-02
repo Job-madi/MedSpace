@@ -38,8 +38,7 @@ class _HomeState extends State<Home> {
                           onPressed: () {},
                         ),
                         hintText: "search",
-                        hintStyle: TextStyle(
-                            fontWeight: FontWeight.w400, color: Colors.black),
+                        hintStyle: TextStyle(fontWeight: FontWeight.w400),
                         border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(50)))),
