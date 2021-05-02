@@ -2,12 +2,22 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flag/flag.dart';
 
+
 class Account extends StatefulWidget {
+  final String username;
+  final String name;
+  final String surname;
+  final dynamic picture;
+  final String country;
+  Account({@required this.username,@required this.name,@required this.surname,@required this.picture,@required this.country});
+  
   @override
   _AccountState createState() => _AccountState();
 }
 
 class _AccountState extends State<Account> {
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +53,7 @@ class _AccountState extends State<Account> {
                           backgroundColor: Colors.transparent,
                           radius: 50,
                           child: Image.network(
-                            "https://i.postimg.cc/21DZ5RDK/dp.png",
+                            widget.picture,
                           ),
                         ),
                       ),
@@ -51,7 +61,7 @@ class _AccountState extends State<Account> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "Name",
+                            widget.name +" "+ widget.surname,
                             style:
                                 TextStyle(color: Colors.white, fontSize: 20.0),
                           ),
@@ -61,7 +71,10 @@ class _AccountState extends State<Account> {
                                 TextStyle(color: Colors.white, fontSize: 20.0),
                           ),
                           Flag(
-                            'in',
+                            widget.country,// country needs to be truncated
+                            //revert to old code
+                            
+
                             height: 36,
                             width: 54,
                           )
