@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flag/flag.dart';
 
+
 class Account extends StatefulWidget {
+  final String username;
+  final String name;
+  final String surname;
+  final dynamic picture;
+  final String country;
+  Account({@required this.username,@required this.name,@required this.surname,@required this.picture,@required this.country});
+  
   @override
   _AccountState createState() => _AccountState();
 }
 
 class _AccountState extends State<Account> {
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,14 +49,14 @@ class _AccountState extends State<Account> {
                         backgroundColor: Colors.transparent,
                         radius: 100,
                         child: Image.network(
-                          "https://i.pinimg.com/originals/d3/f9/13/d3f913b8dd27fac04b26c2c9a903610d.png",
+                          widget.picture,
                         ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "Name",
+                            widget.name +" "+ widget.surname,
                             style:
                                 TextStyle(color: Colors.white, fontSize: 20.0),
                           ),
@@ -56,7 +66,8 @@ class _AccountState extends State<Account> {
                                 TextStyle(color: Colors.white, fontSize: 20.0),
                           ),
                           Flag(
-                            'in',
+                            widget.country,// I don't know how this works I think country needs to be truncated
+
                             height: 36,
                             width: 54,
                           )
