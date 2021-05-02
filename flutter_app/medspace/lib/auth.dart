@@ -3,13 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:medspace/main.dart';
 import 'homescreen.dart';
+import 'package:http/http.dart' as http;
 
+
+const SERVER_IP = 'https://localhost:5000'; //server ip,should 
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+
+ final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+//Todo: to inform user someting went wrong with alert dialog
+
+  Future<String> logIn(String username, String password) async {
+    var res = await http.post(Uri.parse("$SERVER_IP/login"),
+        body: {"username": username, "password": password});
+    if (res.statusCode == 200) return res.body;
+    return null;
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +63,7 @@ class _LoginState extends State<Login> {
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 20.0),
                         child: TextField(
+                          controller: _usernameController,
                           decoration: InputDecoration(
                               hintText: "username",
                               hintStyle: TextStyle(
@@ -58,6 +78,7 @@ class _LoginState extends State<Login> {
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 5.0),
                         child: TextField(
+                          controller: _usernameController,
                           obscureText: false,
                           decoration: InputDecoration(
                               hintText: "password",
@@ -113,6 +134,27 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+
+Future<String> signup(String name,String surname,int age,String gender,String medicalField,String licenseNumber,String country,String city,String profilePicture,String password,String placeofWork)async{
+  var res = await http.post(Uri.parse("$SERVER_IP/login"),
+        body: {"name": name,
+         "surname":surname,
+        "age":age,
+        "gender":gender,
+        "medicalField":medicalField,
+        "licenseNumber":licenseNumber,
+        "placeOfWork":placeofWork,
+        "country":country,
+        "city":city,
+        "pfpUrl":profilePicture,
+         });
+   return res.body;
+
+}
+
+
+
+
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.width;
