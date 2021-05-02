@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flag/flag.dart';
 
@@ -45,11 +46,15 @@ class _AccountState extends State<Account> {
                   ),
                   child: Row(
                     children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        radius: 100,
-                        child: Image.network(
-                          widget.picture,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 40.0, horizontal: 20),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          radius: 50,
+                          child: Image.network(
+                            widget.picture,
+                          ),
                         ),
                       ),
                       Column(
@@ -145,6 +150,71 @@ class _AccountState extends State<Account> {
                   ],
                 ),
 // ToggleButtons(children: , isSelected: isSelected)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Container(
+                          width: 120,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.transparent,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Colors.grey,
+                                Colors.blueGrey,
+                              ],
+                            ),
+                          ),
+                          height: 40,
+                          // color: Colors.pink,
+                          child: MaterialButton(
+                            onPressed: () {
+                              AdaptiveTheme.of(context).setDark();
+                            },
+                            child: Text(
+                              "dark theme",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      child: Container(
+                          width: 120,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.transparent,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Colors.amber,
+                                Colors.deepOrange,
+                              ],
+                            ),
+                          ),
+                          height: 40,
+                          // color: Colors.pink,
+                          child: MaterialButton(
+                            onPressed: () {
+                              AdaptiveTheme.of(context).setLight();
+                            },
+                            child: Text(
+                              "light theme",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 30.0),
                   child: Container(

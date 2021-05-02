@@ -6,7 +6,7 @@ import 'homescreen.dart';
 import 'package:http/http.dart' as http;
 
 
-const SERVER_IP = 'https://localhost:5000'; //server ip,should 
+const SERVER_IP = 'https://localhost:3000'; //server ip,should 
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -67,8 +67,8 @@ class _LoginState extends State<Login> {
                           decoration: InputDecoration(
                               hintText: "username",
                               hintStyle: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
+                                fontWeight: FontWeight.w400,
+                              ),
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50)))),
@@ -78,13 +78,13 @@ class _LoginState extends State<Login> {
                         padding: EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 5.0),
                         child: TextField(
-                          controller: _usernameController,
-                          obscureText: false,
+                          controller: _password,
+                          obscureText: true,
                           decoration: InputDecoration(
                               hintText: "password",
                               hintStyle: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black),
+                                fontWeight: FontWeight.w400,
+                              ),
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50)))),
@@ -197,8 +197,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                             decoration: InputDecoration(
                                 hintText: "username",
                                 hintStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)))),
@@ -211,8 +211,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                             decoration: InputDecoration(
                                 hintText: "full name",
                                 hintStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)))),
@@ -225,8 +225,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                             decoration: InputDecoration(
                                 hintText: "designation",
                                 hintStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)))),
@@ -239,8 +239,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                             decoration: InputDecoration(
                                 hintText: "licence number",
                                 hintStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)))),
@@ -254,8 +254,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                             decoration: InputDecoration(
                                 hintText: "password",
                                 hintStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black),
+                                  fontWeight: FontWeight.w400,
+                                ),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)))),
@@ -293,9 +293,7 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                             height: 55,
                             width: h - 40,
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black45,
-                                ),
+                                border: Border.all(color: Colors.black),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50))),
                           ),

@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'auth.dart';
 
@@ -6,11 +7,23 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "MedSpace",
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: Homepage(),
+    return AdaptiveTheme(
+      light: ThemeData(
+          brightness: Brightness.light,
+          primarySwatch: Colors.amber,
+          accentColor: Colors.purpleAccent),
+      dark: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.grey,
+          accentColor: Colors.purpleAccent),
+      initial: AdaptiveThemeMode.light,
+      builder: (theme, darkTheme) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "MedSpace",
+        theme: theme,
+        darkTheme: darkTheme,
+        home: Homepage(),
+      ),
     );
   }
 }
@@ -31,11 +44,11 @@ class Homepage extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Image.network(
-                        "https://i.ibb.co/0MSR0qf/1619838311558.png",
+                        "https://i.postimg.cc/NyG216L8/ic-launcher.png",
                         height: 150,
                       ),
                       Image.network(
-                        "https://i.ibb.co/XL65cLP/20210501-151339.png",
+                        "https://i.postimg.cc/gxH6XSck/name.png",
                         height: 60,
                       ),
                     ],
