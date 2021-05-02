@@ -1,33 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:http/http.dart';
 import 'package:medspace/main.dart';
 import 'homescreen.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-
-const SERVER_IP = 'https://localhost:3000'; //server ip,should 
+const SERVER_IP = 'http://10.0.0.14:3001'; //replace with your ip,should
+ String userID;
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-
- final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _password = TextEditingController();
 //Todo: to inform user someting went wrong with alert dialog
-
-  Future<String> logIn(String username, String password) async {
-    var res = await http.post(Uri.parse("$SERVER_IP/login"),
-        body: {"username": username, "password": password});
-    if (res.statusCode == 200) return res.body;
-    return null;
+//
+  Future<http.Response> login(
+    String username,
+    String password,
+  ) {
+    return http.post(
+      Uri.http('10.0.0.14:3001', 'users/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "username": username,
+        "password": password,
+        "pfpUrl": "https://i.redd.it/v0caqchbktn741.jpg"
+      }),
+    );
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -99,12 +106,20 @@ class _LoginState extends State<Login> {
                             style:
                                 TextStyle(fontSize: 20.0, color: Colors.white),
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MyHomePage()),
-                            );
+                          onPressed: () async {
+                            Response resp = await login(
+                                _usernameController.text, _password.text);
+                            var jsonData = jsonDecode(resp.body);
+
+                            if (jsonData['success'] == true) {
+                              userID = jsonData['data']['userId'];
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyHomePage()),
+                              );
+                            }
                           },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(28.0),
@@ -134,9 +149,68 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController firstName = TextEditingController();
+  final TextEditingController surname = TextEditingController();
+  final TextEditingController designation = TextEditingController();
+  final TextEditingController liscenceNumber = TextEditingController();
+  String countryPlace;
+  String userID;
 
-Future<String> signup(String name,String surname,int age,String gender,String medicalField,String licenseNumber,String country,String city,String profilePicture,String password,String placeofWork)async{
-  var res = await http.post(Uri.parse("$SERVER_IP/login"),
+//need to make a plan for getting photos
+  Future<http.Response> createUser(
+    String username,
+    String password,
+  ) {
+    return http.post(
+      Uri.http('10.0.0.14:3001', 'users/create'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "username": username,
+        "password": password,
+        "pfpUrl": "https://i.redd.it/v0caqchbktn741.jpg"
+      }),
+    );
+  }
+
+  Future<http.Response> signup(String name, String medicalField,
+      String licenseNumber, String country, String userID) async {
+    return http.post(
+      Uri.http('10.0.0.14:3001', 'doctors/create'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "name": name,
+        "surname": "nullfor now",
+        "age": "nullfor now",
+        "gender": "null gender",
+        "medicalField": medicalField,
+        "licenseNumber": licenseNumber,
+        "post": "placeholder",
+        "placeOfWork": "null yet again",
+        "country": countryPlace,
+        "city": "placeholder",
+        "pfpUrl": 'https://hello.com',
+        "userId": userID,
+      }),
+      /* "name": "Billy",
+    "surname": "Billy Fernandez",
+    "age": 5,
+    "gender": "Male",
+    "medicalField": "Dentist",
+    "licenseNumber": "19028390123890",
+    "post": "placeholder",
+    "placeOfWork": "Biden's Dental Office",
+    "country": "USA",
+    "city": "New York",
+    "pfpUrl": "https://upload.wikimedia.org/wikipedia/commons/5/53/Doctor_Mike_in_2020.jpg",*/
+    );
+
+    /*var res = await http.post(Uri.parse("$SERVER_IP/login"),
         body: {"name": name,
          "surname":surname,
         "age":age,
@@ -148,12 +222,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
         "city":city,
         "pfpUrl":profilePicture,
          });
-   return res.body;
-
-}
-
-
-
+   return res.body;*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -194,6 +264,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 5.0),
                           child: TextField(
+                            //username controller
+                            controller: _username,
                             decoration: InputDecoration(
                                 hintText: "username",
                                 hintStyle: TextStyle(
@@ -208,6 +280,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 5.0),
                           child: TextField(
+                            //firstname
+                            controller: firstName,
                             decoration: InputDecoration(
                                 hintText: "full name",
                                 hintStyle: TextStyle(
@@ -222,6 +296,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 5.0),
                           child: TextField(
+                            //place of work right?
+                            controller: designation,
                             decoration: InputDecoration(
                                 hintText: "designation",
                                 hintStyle: TextStyle(
@@ -236,6 +312,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 5.0),
                           child: TextField(
+                            //license number
+                            controller: liscenceNumber,
                             decoration: InputDecoration(
                                 hintText: "licence number",
                                 hintStyle: TextStyle(
@@ -250,6 +328,8 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                           padding: EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 5.0),
                           child: TextField(
+                            //password my fellas
+                            controller: _password,
                             obscureText: true,
                             decoration: InputDecoration(
                                 hintText: "password",
@@ -284,7 +364,7 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                                         //Optional. Shows phone code before the country name.
                                         showPhoneCode: false,
                                         onSelect: (Country country) {
-                                          // text = country.displayName;
+                                          countryPlace = country.displayName;
                                         },
                                       );
                                     })
@@ -307,12 +387,36 @@ Future<String> signup(String name,String surname,int age,String gender,String me
                               style: TextStyle(
                                   fontSize: 20.0, color: Colors.white),
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyHomePage()),
-                              );
+                            onPressed: () async {
+                              print(
+                                  "This is username:${_username.text} and pass:${_password.text}");
+
+                              Response res = await createUser(
+                                  _username.text, _password.text);
+                              var jsonData = jsonDecode(res.body);
+
+                              print("this is jsonDAta $jsonData");
+                              if (jsonData['success'] == true) {
+                                //if accounts is madeit it will return sucess and user id will be given back to make actual account
+                                userID = jsonData['data']['userId'];
+                                print("this is userid bro $userID");
+
+                                Response creation = await signup(
+                                    firstName.text,
+                                    designation.text,
+                                    liscenceNumber.text,
+                                    countryPlace,
+                                    userID);
+
+                                print(creation.body);
+                                var jsonDatacreate = jsonDecode(creation.body);
+                                print(jsonDatacreate);
+                                if (jsonDatacreate['success'] == true)
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyHomePage()));
+                              }
                             },
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(28.0),
