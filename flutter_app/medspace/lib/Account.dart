@@ -71,7 +71,9 @@ class _AccountState extends State<Account> {
                                 TextStyle(color: Colors.white, fontSize: 20.0),
                           ),
                           Flag(
-                            widget.country,// I don't know how this works I think country needs to be truncated
+                            widget.country,// country needs to be truncated
+                            //revert to old code
+                            
 
                             height: 36,
                             width: 54,
